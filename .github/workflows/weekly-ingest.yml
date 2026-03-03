@@ -1,0 +1,43 @@
+name: Weekly paper ingestion
+
+on:
+  schedule:
+    # Weekly on Monday at 02:00 UTC (change cron as you like)
+    - cron: '0 2 * * 1'
+  workflow_dispatch:  # allow manual runs
+
+jobs:
+  weekly-ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360   # 6 hours (GitHub max per job for hosted runners)
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run incremental ingestion
+        env:
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
+        run: |
+          python ingest_incremental.py
+
+      - name: Commit CSV back to repo (optional)
+        if: ${{ always() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add papers_bart_full.csv || true
+          git commit -m "weekly ingestion update" || echo "no changes to commit"
+          git push || echo "push failed (probably due to permissions)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
