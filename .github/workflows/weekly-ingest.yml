@@ -37,4 +37,4 @@ jobs:
           SHEET_ID: ${{ secrets.SHEET_ID }}
           GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
         run: |
-          python incremental.py
+          python ingest.py
