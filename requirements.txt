@@ -7,3 +7,4 @@ transformers == 4.44.2
 yake == 0.7.3
 torch
 sentence-transformers
+accelerate
