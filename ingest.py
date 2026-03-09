@@ -21,7 +21,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 # import pipeline functions (from your pipeline implementation)
-from my_pipeline import fetch_openalex_for_journals, process_paper_by_meta
+from pipeline import fetch_openalex_for_journals, process_paper_by_meta
 
 # ---------------- CONFIG ----------------
 SHEET_ID_ENV = "SHEET_ID"
@@ -261,4 +261,5 @@ def incremental_run_sheet_only():
 if __name__ == "__main__":
     start = time.time()
     incremental_run_sheet_only()
+
     print("Elapsed:", time.time() - start)
