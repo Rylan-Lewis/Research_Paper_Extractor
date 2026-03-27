@@ -1,9 +1,9 @@
-name: Regular paper ingestion (every 3 hours)
+name: Regular paper ingestion (Every Monday at 10 AM)
 
 on:
   schedule:
     # every 3 hours at minute 0
-    - cron: '0 2 * * 1'
+    - cron: '0 17 * * 1'
   workflow_dispatch:  # allow manual runs
 
 concurrency:
