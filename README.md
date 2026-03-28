@@ -1,5 +1,3 @@
-SUMMARY REPORT
-
 This repository implements an automated research-paper ingestion pipeline that,
 
 - Fetches recent papers from specified target journals via OpenAlex
