@@ -1,11 +1,3 @@
-# my_pipeline.py
-"""
-Adapted pipeline exposing:
-- fetch_openalex_for_journals()
-- process_paper_by_meta(meta)
-
-This combines the fetching and processing code you provided.
-"""
 
 # 1) Imports & model init
 import time
